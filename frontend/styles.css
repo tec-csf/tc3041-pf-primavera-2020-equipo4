@@ -1,0 +1,26 @@
+.btn-outline-primary
+{
+	color: #a963c0;
+	border-color: #a963c0;
+}
+
+.btn-primary
+{
+	background-color: #a963c0;
+	border-color: #a963c0;
+}
+.btn-primary:hover
+{
+	background-color: #934aac;
+	border-color: #934aac;
+}
+.btn-primary:active
+{
+	background-color: #e4c6ee;
+	border-color: #e4c6ee;
+}
+.btn-primary:visited
+{
+	background-color: #b484c4;
+	border-color: #b484c4;
+}
