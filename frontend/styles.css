@@ -24,3 +24,13 @@
 	background-color: #b484c4;
 	border-color: #b484c4;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show >.nav-link 
+{
+    background-color: #a963c0;
+}
+
+.btn-space
+{
+    margin-right: 5px;
+}
