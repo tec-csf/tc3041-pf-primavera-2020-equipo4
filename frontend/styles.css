@@ -130,11 +130,6 @@
   to {opacity: 1}
 }
 
-.price-button
-{
-	margin-left: 10px;
-}
-
 th
 {
 	width: 25%;
@@ -177,14 +172,9 @@ th
 	width: 60%
 }
 
-label
-{
-	margin-left: 10px;
-	margin-right: 10px;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
