@@ -129,3 +129,62 @@
   from {opacity: .4}
   to {opacity: 1}
 }
+
+.price-button
+{
+	margin-left: 10px;
+}
+
+th
+{
+	width: 25%;
+	text-align: center;
+}
+
+.orange
+{
+	color: orange;
+}
+
+.divisor
+{
+	height:2px;
+	border-width:0;
+	color:black;
+	background-color: black
+}
+
+.review-user
+{
+	
+	width: 20%;
+}
+
+.review-review
+{
+	text-align: justify;
+	width: max-content;
+}
+
+.review-grade
+{
+	width: 10%;
+}
+
+.review-text
+{
+	resize: none;
+	width: 60%
+}
+
+label
+{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
