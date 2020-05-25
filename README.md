@@ -4,10 +4,10 @@
 ---
 
 ##### Integrantes:
-1. *[Poner aquí Nombre y Apellidos del integrante 1]* - *[Poner aquí su Matrícula]* - *[Poner aquí su campus]*
-2. *[Poner aquí Nombre y Apellidos del integrante 2]* - *[Poner aquí su Matrícula]* - *[Poner aquí su campus]*
-3. *[Poner aquí Nombre y Apellidos del integrante 3]* - *[Poner aquí su Matrícula]* - *[Poner aquí su campus]*
-4. *[Poner aquí Nombre y Apellidos del integrante 4]* - *[Poner aquí su Matrícula]* - *[Poner aquí su campus]*
+1. *[Simon Metta Grego]* - *[A01377925]* - *[Campus Santa Fe]*
+2. *[Cristian Dalma  Schultz]* - *[A01423166]* - *[Campus Santa Fe]*
+3. *[Isabel Maqueda Rolon]* - *[A01652906]* - *[Campus Santa Fe]*
+4. *[Jorge Palacios Hristova]* - *[A01654203]* - *[Campus Santa Fe]*
 
 ---
 ## 1. Aspectos generales
