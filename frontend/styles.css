@@ -133,12 +133,19 @@
 th
 {
 	width: 25%;
-	text-align: center;
+  text-align: center;
+  padding: 15px;
 }
+
 
 .orange
 {
 	color: orange;
+}
+
+.white-blue
+{
+  color:#56CCEF ;
 }
 
 .divisor
@@ -178,3 +185,11 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+th, td {
+  border-bottom: 1px solid #ddd;
+}
+
+hr {
+  height: 10px;
+  background-color: #934aac;
+}
