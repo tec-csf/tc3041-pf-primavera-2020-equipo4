@@ -1,6 +1,6 @@
 # TC3041 Proyecto Final Primavera 2020
 
-# *[Poner aquí el Título del Proyecto]*
+# *[VideoGame Blog]*
 ---
 
 ##### Integrantes:
