@@ -25,17 +25,17 @@
 						<h4 class="card-title mt-2">Log in</h4>
 					</header>
 					<article class="card-body">
-						<form name="sign_in_form">
+						<form name="/sign_in_form" method="POST">
 							<div class="form-group">
 								<label>Email address</label>
-								<input type="email" class="form-control" placeholder="" required name="user_email">
+								<input type="email" class="form-control" placeholder="" required name="email">
 							</div>
 							<div class="form-group">
 								<label>Password</label>
-								<input class="form-control" type="password" required name="user_password">
+								<input class="form-control" type="password" required name="password">
 							</div> 
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block" onclick="sign_in_function()">Enter</button>
+								<button type="submit" class="btn btn-primary btn-block">Enter</button>
 							</div>
 						</form>
 					</article>
