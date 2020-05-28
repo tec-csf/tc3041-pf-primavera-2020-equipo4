@@ -1,24 +1,48 @@
 const express = require('express');
 const path = require('path');
-const {MongoClient} = require('mongodb');
 const bodyParser = require('body-parser');
-
-var user = "";
+const db = require('./db');
+const colluser = "users";
+const collgames = "games";
 
 const app = new express();
 app.use(express.static(path.join(__dirname,'../frontend')));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-const url = 'mongodb+srv://admin:12345@project-c6b6w.gcp.mongodb.net/test?retryWrites=true&w=majority';
+db.connect((err) => {
+	if(err) {
+		console.log('Unable to connect to db');
+		process.exit(1);	
+	}
+	else {
+		app.listen(8080, () => {
+			console.log('Conected to DB, listening in port 8080');
+		});
+	}
+});
 
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '../frontend/login.html'));;
 });
 
-app.post('/validateSign', async (req, res) => {
+app.post('/validateSign', (req, res) => {
 	console.log(req.body.email);
-	console.log(req.body.password);
+	db.getDB().collection(colluser).find({email: req.body.email}).limit(10).toArray((err, documents) => {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			console.log(documents);
+			res.json(documents);	
+		}
+	});
+});
+
+/*
+app.get('/validateSign', async (req, res) => {
+	console.log(req.params.email);
+	console.log(req.params.password);
 
 	var client = await MongoClient.connect(url, { 
 		useNewUrlParser: true, 
@@ -39,7 +63,7 @@ app.post('/validateSign', async (req, res) => {
 });
 
 app.get('/Home', async (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/home.html'), {user: user});;
+	res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
 });
 
 app.post('/Home', async (req, res) => {
@@ -77,3 +101,4 @@ app.get('/Search', (req, res) => {
 app.listen(8080, () => {
 	console.log("running on port 8080");
 });
+*/
