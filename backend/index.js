@@ -3,6 +3,8 @@ const path = require('path');
 const {MongoClient} = require('mongodb');
 const bodyParser = require('body-parser');
 
+var user = "";
+
 const app = new express();
 app.use(express.static(path.join(__dirname,'../frontend')));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -10,7 +12,7 @@ app.use(bodyParser.json());
 
 const url = 'mongodb+srv://admin:12345@project-c6b6w.gcp.mongodb.net/test?retryWrites=true&w=majority';
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
 	res.sendFile(path.resolve(__dirname, '../frontend/login.html'));;
 });
 
@@ -24,16 +26,24 @@ app.post('/validateSign', async (req, res) => {
 	});
 
 	var db = client.db('Nosesmash');
-	var user = await db.collection("users").findOne({'email': req.body.email, 'password': req.body.password});
+	user = await db.collection("users").findOne({'email': req.body.email, 'password': req.body.password});
 	console.log(user);
+	if(user != null)
+	{
+		res.redirect('/Home');
+	} else {
+		res.redirect('/')
+	}
 
 	client.close();
-
-	res.json({username: user.username});
 });
 
-app.get('/Home', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/home.html'))
+app.get('/Home', async (req, res) => {
+	res.sendFile(path.resolve(__dirname, '../frontend/home.html'), {user: user});;
+});
+
+app.post('/Home', async (req, res) => {
+
 });
 
 app.get('/Library', (req, res) => {
