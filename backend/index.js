@@ -39,6 +39,34 @@ app.post('/validateSign', (req, res) => {
 	});
 });
 
+//regresa todos los juegos 
+app.get('/games', (req, res) => {
+	console.log(req.body.email);
+	db.getDB().collection(collgames).find({}).limit(10).toArray((err, documents) => {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			console.log(documents);
+			res.json(documents);	
+		}
+	});
+});
+
+//intento de que regrese uno 
+app.get('/games/:title', (req, res) => {
+	console.log("Single title");
+	db.getDB().collection(collgames).findOne({title: req.body.title}).limit(10).toArray((err, documents) => {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			console.log(documents);
+			res.json(documents);	
+		}
+	});
+});
+
 /*
 app.get('/validateSign', async (req, res) => {
 	console.log(req.params.email);
