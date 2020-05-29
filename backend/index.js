@@ -28,13 +28,34 @@ app.get('/', (req, res) => {
 
 app.post('/validateSign', (req, res) => {
 	console.log(req.body.email);
-	db.getDB().collection(colluser).find({email: req.body.email}).limit(10).toArray((err, documents) => {
+	db.getDB().collection(colluser).findOne({email: req.body.email}).toArray((err, documents) => {
 		if(err) {
 			console.log(err);
 		}
 		else {
 			console.log(documents);
 			res.json(documents);	
+		}
+	});
+});
+
+app.get('/Home', async (req, res) => {
+	res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
+});
+
+app.get('/Home/:id', (req, res) => {
+	var id = parseInt(req.params.id)
+	var docs = db.getDB().collection(colluser).findOne({id: id}, (err, documents) => {
+		if(err) {
+			console.log(err);
+		}
+		else {	
+			if(documents != null) {
+				res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
+			}
+			else {
+				res.sendFile(path.resolve(__dirname, '../frontend/login.html'));;
+			}
 		}
 	});
 });
@@ -54,9 +75,9 @@ app.get('/games', (req, res) => {
 });
 
 //intento de que regrese uno 
-app.get('/games/:title', (req, res) => {
+app.get('/games/:id/:title', (req, res) => {
 	console.log("Single title");
-	db.getDB().collection(collgames).findOne({title: req.body.title}).limit(10).toArray((err, documents) => {
+	db.getDB().collection(collgames).find({title: req.params.title}).toArray((err, documents) => {
 		if(err) {
 			console.log(err);
 		}
