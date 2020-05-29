@@ -45,16 +45,16 @@ app.get('/Home', async (req, res) => {
 
 app.get('/Home/:id', (req, res) => {
 	var id = parseInt(req.params.id)
-	var docs = db.getDB().collection(colluser).findOne({id: id}, (err, documents) => {
+	db.getDB().collection(colluser).findOne({id: id}, (err, documents) => {
 		if(err) {
 			console.log(err);
 		}
 		else {	
 			if(documents != null) {
-				res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
+				res.redirect('/Home')
 			}
 			else {
-				res.sendFile(path.resolve(__dirname, '../frontend/login.html'));;
+				res.redirect('/');
 			}
 		}
 	});
