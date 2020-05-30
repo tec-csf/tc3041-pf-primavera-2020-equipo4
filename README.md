@@ -1,6 +1,6 @@
 # TC3041 Proyecto Final Primavera 2020
 
-# *[VideoGame Blog]*
+# *NoseSmash*
 ---
 
 ##### Integrantes:
