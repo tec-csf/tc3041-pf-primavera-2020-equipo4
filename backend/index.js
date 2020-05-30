@@ -67,7 +67,6 @@ app.post('/createAccount', (req, res) => {
 	});
 })
 
-
 app.post('/validateSign', (req, res) => {
 	console.log(req.body.email);
 	db.getDB().collection(colluser).findOne({email: req.body.email, password: req.body.pass}, (err, document) => {
@@ -88,9 +87,8 @@ app.post('/validateSign', (req, res) => {
 	});
 });
 
-app.get('/:id/Home/', async (req, res) => {
-	app.use(express.static(path.join(__dirname,'../frontend')));
-	res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
+app.get('/:id/Home/',(req, res) => {
+	res.redirect('/Home');
 });
 
 //regresa todos los juegos 
@@ -170,6 +168,9 @@ app.get('/Settings', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '../frontend/settings.html'))
 });
 
+app.get('/Home', (req, res) => {
+	res.sendFile(path.resolve(__dirname, '../frontend/home.html'))
+});
 
 /*
 app.get('/validateSign', async (req, res) => {
