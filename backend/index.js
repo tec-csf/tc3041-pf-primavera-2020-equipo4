@@ -6,7 +6,7 @@ const colluser = "users";
 const collgames = "games";
 
 const app = new express();
-app.use(express.static(path.join(__dirname,'../frontend')));
+app.use(express.static(path.join(__dirname,'../public')));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
@@ -67,6 +67,7 @@ app.post('/createAccount', (req, res) => {
 	});
 })
 
+
 app.post('/validateSign', (req, res) => {
 	console.log(req.body.email);
 	db.getDB().collection(colluser).findOne({email: req.body.email, password: req.body.pass}, (err, document) => {
@@ -76,7 +77,7 @@ app.post('/validateSign', (req, res) => {
 		else {
 			if(document != null) {
 				console.log('user ' + document.username + ' Signed in');
-				res.redirect('/' + document.id + '/Home');
+				res.redirect('/Home?id=' + document.id);
 				return;
 			}
 			else {
@@ -87,8 +88,22 @@ app.post('/validateSign', (req, res) => {
 	});
 });
 
-app.get('/:id/Home/',(req, res) => {
-	res.redirect('/Home');
+app.get('/Home', async (req, res) => {
+	res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
+	
+	db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
+		if(err) {
+			console.log(err);
+		}
+		else {
+			if(doc == null) {
+				console.log('No user');	
+			}
+			else {
+				console.log(doc.username);
+			}
+		}
+	})
 });
 
 //regresa todos los juegos 
@@ -168,9 +183,6 @@ app.get('/Settings', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '../frontend/settings.html'))
 });
 
-app.get('/Home', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/home.html'))
-});
 
 /*
 app.get('/validateSign', async (req, res) => {
