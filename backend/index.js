@@ -26,38 +26,71 @@ app.get('/', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '../frontend/login.html'));;
 });
 
-app.post('/validateSign', (req, res) => {
-	console.log(req.body.email);
-	db.getDB().collection(colluser).findOne({email: req.body.email}).toArray((err, documents) => {
+app.get('/Sign', (req, res) => {
+	res.sendFile(path.resolve(__dirname, '../frontend/signup.html'))
+});
+
+app.post('/createAccount', (req, res) => {
+	console.log(req.body);
+	
+	if(req.body.pass != req.body.passC) {
+		console.log('Password doesnt match');
+		res.redirect('/Sign');
+		return;
+	}
+	db.getDB().collection(colluser).find({}).count((err, count) => {
 		if(err) {
 			console.log(err);
 		}
 		else {
-			console.log(documents);
-			res.json(documents);	
+			db.getDB().collection(colluser).insert({
+				id: count,
+				username: req.body.username,
+				email: req.body.email,
+				birthdate: req.body.birth,
+				password: req.body.pass
+			}, (err, document) => {
+				if(err) {
+					console.log(err);
+					res.redirect('/Sign');
+					return;
+				}
+				if(document == null) {
+					res.redirect('/Sign');
+					console.log('Error while creating account');
+					return;
+				}
+				console.log('Success');
+				res.redirect('/')
+			})
 		}
 	});
-});
+})
 
-app.get('/Home', async (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
-});
 
-app.get('/:id/Home/', (req, res) => {
-	var id = parseInt(req.params.id)
-	db.getDB().collection(colluser).findOne({id: id}, (err, documents) => {
+app.post('/validateSign', (req, res) => {
+	console.log(req.body.email);
+	db.getDB().collection(colluser).findOne({email: req.body.email, password: req.body.pass}, (err, document) => {
 		if(err) {
 			console.log(err);
 		}
-		else {	
-			if(documents != null) {
-				res.redirect('/Home')
+		else {
+			if(document != null) {
+				console.log('user ' + document.username + ' Signed in');
+				res.redirect('/' + document.id + '/Home');
+				return;
 			}
 			else {
+				console.log('nonexisten user');
 				res.redirect('/');
 			}
 		}
 	});
+});
+
+app.get('/:id/Home/', async (req, res) => {
+	app.use(express.static(path.join(__dirname,'../frontend')));
+	res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
 });
 
 //regresa todos los juegos 
