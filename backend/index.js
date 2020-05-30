@@ -89,21 +89,27 @@ app.post('/validateSign', (req, res) => {
 });
 
 app.get('/Home', async (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
-	
-	db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
-		if(err) {
-			console.log(err);
-		}
-		else {
-			if(doc == null) {
-				console.log('No user');	
+	if(req.query.id == null) {
+		res.redirect('/');
+		return;
+	}
+	else {
+		db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
+			if(err) {
+				console.log(err);
 			}
 			else {
-				console.log(doc.username);
+				if(doc == null) {
+					res.redirect('/');
+					return;
+				}
+				else {
+					console.log(doc.username);
+					res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
+				}
 			}
-		}
-	})
+		});
+	}
 });
 
 //regresa todos los juegos 
