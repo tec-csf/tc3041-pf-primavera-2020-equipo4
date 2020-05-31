@@ -55,7 +55,7 @@ Como parte de la entrega final del proyecto, se debe incluir la siguiente inform
 
 ## 2. Descripción del proyecto
 
-*[Incluya aquí la descripción del proyecto seleccionado.]*
+El proyecto que se presneta a continuación es una página de videojuegos la cual se llama Nosesmash en esta página web los usuarios pueden tener su libreria de juegos al igual que hacer reviews de estos , de la misma manera los usuarios se pueden seguir lo cual implica que vean las reviews que suben los usaurios que siguen de la misma manera se pueden bloquear usuarios para que ya no vea el contenido que revisan.
 
 ## 3. Solución
 
