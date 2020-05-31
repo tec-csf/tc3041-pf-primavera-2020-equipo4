@@ -32,7 +32,6 @@ app.get('/Sign', (req, res) => {
 
 app.post('/createAccount', (req, res) => {
 	console.log(req.body);
-	
 	if(req.body.pass != req.body.passC) {
 		console.log('Password doesnt match');
 		res.redirect('/Sign');
@@ -112,6 +111,150 @@ app.get('/Home', async (req, res) => {
 	}
 });
 
+app.get('/Library', async (req, res) => {
+	if(req.query.id == null) {
+		res.redirect('/');
+		return;
+	}
+	else {
+		db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				if(doc == null) {
+					res.redirect('/');
+					return;
+				}
+				else {
+					console.log(doc.username);
+					res.sendFile(path.resolve(__dirname, '../frontend/library.html'));;
+				}
+			}
+		});
+	}
+});
+
+app.get('/Settings', async (req, res) => {
+	if(req.query.id == null) {
+		res.redirect('/');
+		return;
+	}
+	else {
+		db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				if(doc == null) {
+					res.redirect('/');
+					return;
+				}
+				else {
+					console.log(doc.username);
+					res.sendFile(path.resolve(__dirname, '../frontend/settings.html'));;
+				}
+			}
+		});
+	}
+});
+
+app.get('/Search', async (req, res) => {
+	if(req.query.id == null) {
+		res.redirect('/');
+		return;
+	}
+	else {
+		db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				if(doc == null) {
+					res.redirect('/');
+					return;
+				}
+				else {
+					console.log(doc.username);
+					res.sendFile(path.resolve(__dirname, '../frontend/search.html'));;
+				}
+			}
+		});
+	}
+});
+
+app.get('/Game', async (req, res) => {
+	if(req.query.id == null) {
+		res.redirect('/');
+		return;
+	}
+	else {
+		db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				if(doc == null) {
+					res.redirect('/');
+					return;
+				}
+				else {
+					console.log(doc.username);
+					res.sendFile(path.resolve(__dirname, '../frontend/game.html'));;
+				}
+			}
+		});
+	}
+});
+
+app.get('/User', async (req, res) => {
+	if(req.query.id == null) {
+		res.redirect('/');
+		return;
+	}
+	else {
+		db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				if(doc == null) {
+					res.redirect('/');
+					return;
+				}
+				else {
+					console.log(doc.username);
+					res.sendFile(path.resolve(__dirname, '../frontend/user.html'));;
+				}
+			}
+		});
+	}
+});
+
+app.get('/Add', async (req, res) => {
+	if(req.query.id == null) {
+		res.redirect('/');
+		return;
+	}
+	else {
+		db.getDB().collection(colluser).findOne({id: parseInt(req.query.id)}, (err, doc) => {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				if(doc == null) {
+					res.redirect('/');
+					return;
+				}
+				else {
+					console.log(doc.username);
+					res.sendFile(path.resolve(__dirname, '../frontend/add_game.html'));;
+				}
+			}
+		});
+	}
+});
+
 //regresa todos los juegos 
 app.get('/games', (req, res) => {
 	console.log(req.body.email);
@@ -125,70 +268,6 @@ app.get('/games', (req, res) => {
 		}
 	});
 });
-
-//intento de que regrese uno Manda a la panatalla Game 
-app.get('/:id/Home/:title/', (req, res) => {
-	console.log("Single title");
-	db.getDB().collection(collgames).find({title: req.params.title}).toArray((err, documents) => {
-		if(err) {
-			//console.log(err);
-			res.redirect('/');
-		}
-		else {
-			res.redirect('/Game');
-			//console.log(documents);
-			//res.json(documents);	
-		}
-	});
-});
-
-//Sends to library depending of the id 
-app.get('/:id/Library', (req, res) => {
-	var id = parseInt(req.params.id)
-	db.getDB().collection(colluser).findOne({id: id}, (err, documents) => {
-		if(err) {
-			console.log(err);
-		}
-		else {	
-			if(documents != null) {
-				res.redirect('/Library')
-			}
-			else {
-				res.redirect('/');
-			}
-		}
-	});
-});
-
-app.get('/:id/Settings', (req, res) => {
-	var id = parseInt(req.params.id)
-	db.getDB().collection(colluser).findOne({id: id}, (err, documents) => {
-		if(err) {
-			console.log(err);
-		}
-		else {	
-			if(documents != null) {
-				res.redirect('/Settings')
-			}
-			else {
-				res.redirect('/');
-			}
-		}
-	});
-});
-
-app.get('/Game', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/game.html'))
-});
-
-app.get('/Library', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/library.html'))
-});
-
-app.get('/Settings', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/settings.html'))
-});
-
 
 /*
 app.get('/validateSign', async (req, res) => {
