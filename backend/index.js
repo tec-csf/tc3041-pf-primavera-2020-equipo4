@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const db = require('./db');
 const colluser = "users";
 const collgames = "games";
+var user = null;
 
 const app = new express();
 app.use(express.static(path.join(__dirname,'../public')));
@@ -75,6 +76,7 @@ app.post('/validateSign', (req, res) => {
 		}
 		else {
 			if(document != null) {
+				user = document;
 				console.log('user ' + document.username + ' Signed in');
 				res.redirect('/Home?id=' + document.id);
 				return;
@@ -87,7 +89,7 @@ app.post('/validateSign', (req, res) => {
 	});
 });
 
-app.get('/Home', async (req, res) => {
+app.get('/Home', (req, res) => {
 	if(req.query.id == null) {
 		res.redirect('/');
 		return;
@@ -110,6 +112,12 @@ app.get('/Home', async (req, res) => {
 		});
 	}
 });
+
+app.get('/goHome', (req, res) => {
+	if(user != null) {
+		res.redirect('Library?id=' + user.id)
+	}
+})
 
 app.get('/Library', async (req, res) => {
 	if(req.query.id == null) {
@@ -268,63 +276,3 @@ app.get('/games', (req, res) => {
 		}
 	});
 });
-
-/*
-app.get('/validateSign', async (req, res) => {
-	console.log(req.params.email);
-	console.log(req.params.password);
-
-	var client = await MongoClient.connect(url, { 
-		useNewUrlParser: true, 
-		useUnifiedTopology: true,
-	});
-
-	var db = client.db('Nosesmash');
-	user = await db.collection("users").findOne({'email': req.body.email, 'password': req.body.password});
-	console.log(user);
-	if(user != null)
-	{
-		res.redirect('/Home');
-	} else {
-		res.redirect('/')
-	}
-
-	client.close();
-});
-
-app.get('/Home', async (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/home.html'));;
-});
-
-app.post('/Home', async (req, res) => {
-
-});
-
-
-
-app.get('/Sign', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/signup.html'))
-});
-
-app.get('/Settings', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/settings.html'))
-});
-
-
-
-app.get('/User', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/user.html'))
-});
-
-app.get('/Add', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/add_game.html'))
-});
-
-app.get('/Search', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '../frontend/search.html'))
-});
-
-app.listen(8080, () => {
-	console.log("running on port 8080");
-});
-*/
